@@ -21,14 +21,16 @@ pre {
 
 a {
   color: #000;
+  opacity: 0.7;
+  text-decoration: none;
+
 
   &:visited {
-    color: #666;
+    opacity: 1;
   }
 
   &:hover {
     color: #fff;
-    background-color: #000;
   }
 }
 

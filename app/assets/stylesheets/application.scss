@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+@import "spectre";
+
+
+/* CSS partials */
+@import "pages/index";

@@ -15,12 +15,12 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.title %></td>
+        <td><%= post.title.truncate(27, separator: ' ') %></td>
         <td><%= post.body %></td>
         <td><%= post.published %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', post, class:"text-success" %></td>
+        <td><%= link_to 'Edit', edit_post_path(post), class:"text-primary" %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, class:"text-error", data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
