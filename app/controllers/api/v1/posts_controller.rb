@@ -10,6 +10,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    respond_with Post.find(params[:id])
   end
 
   # GET /posts/new
@@ -31,7 +32,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   # PATCH/PUT /posts/1.json
   def update
     @post.update_attributes(post_params)
-    respond_with post, json: post
+    respond_with @post, json: @post
   end
 
   # DELETE /posts/1
