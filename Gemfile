@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'faker'
 gem 'spectre_scss'
-
+gem 'responders'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
