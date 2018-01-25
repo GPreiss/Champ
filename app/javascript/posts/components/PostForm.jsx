@@ -9,7 +9,7 @@ const EMPTY_POST = {
   title: '',
   published: false,
   body: '',
-  id: -1
+  id: null
 }
 
 class PostForm extends Component {
@@ -43,9 +43,9 @@ class PostForm extends Component {
     this.handleOnSubmit = (event) => {
       event.preventDefault()
       this.submit(this.state.post)
-      this.setState({
-        post: EMPTY_POST
-      })
+      //this.setState({
+        //post: EMPTY_POST
+      //})
     }
 
     this.handleReset = (event) => {
@@ -58,12 +58,23 @@ class PostForm extends Component {
 
 
   submit(post) {
-    axios.put(`/api/v1/posts/${post.id}.json`,
-      post
-    ).then(() => {
-      this.props.history.push('/')
-    })
-
+    if(post.id == null) {
+      axios.post(`/api/v1/posts.json`,
+        post)
+      .then(function (response) {
+        console.log(response)
+        this.props.history.push('/')
+       })
+      .catch(function (error) {
+        console.log(error)
+      })
+    } else {
+      axios.put(`/api/v1/posts/${post.id}.json`,
+        post
+      ).then(() => {
+        this.props.history.push('/')
+      })
+    }
   }
 
   componentDidMount() {

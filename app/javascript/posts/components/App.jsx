@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-// import Posts from './NewPost'
+import './../../../assets/stylesheets/app.scss';
 import PostForm from './PostForm.jsx'
 import PostShow from './Post.jsx'
 
@@ -13,14 +13,14 @@ const preventDefault = event => event.preventDefault()
 
 const Post = ({ post, onDelete }) => {
   return <tr>
-    <td>{post.title}</td>
-    <td>{post.body}</td>
-    <td>{post.published}</td>
-    <td><Link to={`/posts/${post.id}`} className="text-success">Show</Link></td>
-    <td><Link to={`/posts/edit/${post.id}`} className="text-primary">Edit</Link></td>
-    <td><a onMouseDown={preventDefault} onClick={() => {
-      onDelete(post)
-    }} className="text-error">Destroy</a></td>
+  <td>{post.title}</td>
+  <td>{post.body}</td>
+  <td>{post.published}</td>
+  <td><Link to={`/posts/${post.id}`} className="text-success">Show</Link></td>
+  <td><Link to={`/posts/edit/${post.id}`} className="text-primary">Edit</Link></td>
+  <td><a onMouseDown={preventDefault} onClick={() => {
+    onDelete(post)
+  }} className="text-error">Destroy</a></td>
   </tr>
 }
 
@@ -35,12 +35,12 @@ class PostList extends Component {
 
   componentDidMount() {
     axios.get('/api/v1/posts.json')
-      .then((response) => {
-        this.setState({posts: response.data})
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .then((response) => {
+      this.setState({posts: response.data})
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   }
 
@@ -51,20 +51,23 @@ class PostList extends Component {
 
     return (
       <table className="index-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Published</th>
-            <th colSpan="3"></th>
-          </tr>
-        </thead>
+      <thead>
+      <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Published</th>
+      <th colSpan="3"></th>
+      </tr>
+      </thead>
 
-        <tbody>
-          {posts}
-        </tbody>
+      <tbody>
+      {posts}
+      <div>
+      <p><Link to={`/posts/create`} className="text-success">Click here to add a new post!</Link></p>
+      </div>
+      </tbody>
       </table>
-    )
+      )
   }
 }
 
@@ -116,34 +119,35 @@ class App extends Component {
       borderRadius: 4,
       overflow: 'auto'
     }}>
-      Are you sure you want to delete post {this.state.deletePost.title}?
-      <button onClick={() => {
-        this.doDeletePost(this.state.deletePost)
-        this.setState({
-          deletePost: null
-        })
-      }}> yes
-      </button>
-      <button onClick={() => {
-        this.setState({
-          deletePost: null
-        })
-      }}> no
-      </button>
+    Are you sure you want to delete post {this.state.deletePost.title}?
+    <button onClick={() => {
+      this.doDeletePost(this.state.deletePost)
+      this.setState({
+        deletePost: null
+      })
+    }}> yes
+    </button>
+    <button onClick={() => {
+      this.setState({
+        deletePost: null
+      })
+    }}> no
+    </button>
     </div>
   }
 
   render() {
     return (
       <Router>
-        <div>
-          {this.renderDeleteDialog()}
-          <Route exact path="/posts/edit/:id" render={() => <PostForm />} />
-          <Route exact path="/posts/:id" render={() => <PostShow onDelete={this.deletePost}/>} />
-          <Route exact path="/" render={() => <PostList key={this.state.reloadKey} onDelete={this.deletePost} />} />
-        </div>
+      <div>
+      {this.renderDeleteDialog()}
+      <Route exact path="/posts/create" render={() => <PostForm create={true} />} />
+      <Route exact path="/posts/edit/:id" render={() => <PostForm />} />
+      <Route exact path="/posts/:id" render={() => <PostShow onDelete={this.deletePost}/>} />
+      <Route exact path="/" render={() => <PostList key={this.state.reloadKey} onDelete={this.deletePost} />} />
+      </div>
       </Router>
-    )
+      )
   }
 }
 
