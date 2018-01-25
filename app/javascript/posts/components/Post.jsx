@@ -32,7 +32,7 @@ class PostShow extends Component {
     return <div>
       <h3 className="center">{post.title} {post.factorial}</h3>
       <p>{post.body}</p>
-      <p>{post.published? "This has been published" : "To Publish Update"}</p>
+      <p>{post.published? "Published" : "Edit to publish"}</p>
       {post.published?
         null :
         <div className="buttons-parent">
@@ -55,10 +55,5 @@ class PostShow extends Component {
     </div>
   }
 }
-
-/*
-const Post = ({ post, handleDelete, handleEdit, edit, editPost, handleUpdate }) => (
-  (edit && editPost.id === post.id)? editForm(post, handleUpdate) : postShow(post, handleDelete, handleEdit)
-)*/
 
 export default withRouter(PostShow)
