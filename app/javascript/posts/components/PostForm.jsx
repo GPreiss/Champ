@@ -64,83 +64,87 @@ class PostForm extends Component {
       .then(function (response) {
         console.log(response)
         this.props.history.push('/')
-       })
+      })
       .catch(function (error) {
         console.log(error)
       })
     } else {
       axios.put(`/api/v1/posts/${post.id}.json`,
         post
-      ).then(() => {
-        this.props.history.push('/')
-      })
+        ).then(() => {
+          this.props.history.push('/')
+        })
+      }
     }
-  }
 
-  componentDidMount() {
-    const id = this.props.match.params.id
+    componentDidMount() {
+      const id = this.props.match.params.id
 
-    axios.get(`/api/v1/posts/${id}.json`)
+      axios.get(`/api/v1/posts/${id}.json`)
       .then((response) => {
         this.setState({post: response.data})
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+    }
 
-  render() {
-    const { post } = this.state
-    return (
-      <div className="center">
+    render() {
+      const { post } = this.state
+      return (
+        <div className="container">
+        <div className="columns">
+        <div className="column col-6 post-outline">
         <form
-          className="form-horizontal"
-          onSubmit={this.handleOnSubmit}
+        className="form-horizontal"
+        onSubmit={this.handleOnSubmit}
         >
-          <label className="form-label">Title</label>
-          <input
-            className="form-input"
-            type="text"
-            name="title"
-            onChange={this.handleOnChange}
-            value={post.title}
-          />
-          <label className="form-label">Body</label>
-          <textarea
-            className="form-input"
-            name="body"
-            id="input-example-3"
-            rows="10"
-            type="textarea"
-            onChange={this.handleOnChange}
-            value={post.body}
-          />
-          <label className="form-switch">
-            <input
-              type="checkbox"
-              onChange={this.toggleChange}
-              name="published"
-              checked={post.published}
-              value={post.published}
-            />
-            <i className="form-icon"></i> Published?
-          </label>
-          <div className="buttons-parent">
-            <input
-              type="submit"
-              value={post.id? "Update" : "Submit"}
-              className="btn btn-primary buttons-child"
-            />
-            <button
-              className="btn buttons-child"
-              onClick={this.handleReset}>
-              Reset
-            </button>
-          </div>
+        <label className="form-label">Title</label>
+        <input
+        className="form-input"
+        type="text"
+        name="title"
+        onChange={this.handleOnChange}
+        value={post.title}
+        />
+        <label className="form-label">Body</label>
+        <textarea
+        className="form-input"
+        name="body"
+        id="input-example-3"
+        rows="10"
+        type="textarea"
+        onChange={this.handleOnChange}
+        value={post.body}
+        />
+        <label className="form-switch">
+        <input
+        type="checkbox"
+        onChange={this.toggleChange}
+        name="published"
+        checked={post.published}
+        value={post.published}
+        />
+        <i className="form-icon"></i> Published?
+        </label>
+        <div className="buttons-parent">
+        <input
+        type="submit"
+        value={post.id? "Update" : "Submit"}
+        className="btn btn-primary buttons-child"
+        />
+        <button
+        className="btn buttons-child"
+        onClick={this.handleReset}>
+        Reset
+        </button>
+        </div>
         </form>
-      </div>
-    )
+        </div>
+        </div>
+        </div>
+        )
+    }
   }
-}
 
-export default withRouter(PostForm)
+  export default withRouter(PostForm)
