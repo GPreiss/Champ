@@ -44,13 +44,19 @@ class PostList extends Component {
 
   }
 
+
   render() {
     const posts = this.state.posts.map(post => {
       return(<Post post={post} key={post.id} onDelete={() => this.props.onDelete(post)} />)
     });
 
     return (
-      <table className="index-table">
+      <div className="container">
+      <div className="banner">
+      <h3 className="banner-title">Posts</h3>
+      <img className="img-fit-contain banner-img"src="https://images.unsplash.com/uploads/141103282695035fa1380/95cdfeef?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf56dd62f7e28facff79eaf6e7a78df4&auto=format&fit=crop&w=1274&q=80" class="img-fit-cover banner-img" alt=""></img>
+      </div>
+      <table className="post-table index-table table table-striped table-hover table-scroll">
       <thead>
       <tr>
       <th>Title</th>
@@ -63,10 +69,11 @@ class PostList extends Component {
       <tbody>
       {posts}
       <div>
-      <p><Link to={`/posts/create`} className="text-success">Click here to add a new post!</Link></p>
+      <button className="btn btn-new"><Link to={`/posts/create`}>New Post!</Link></button>
       </div>
       </tbody>
       </table>
+      </div>
       )
   }
 }
@@ -88,7 +95,6 @@ class App extends Component {
     this.setState({
       deletePost: post
     })
-    // todo implement
   }
 
   doDeletePost(post) {
@@ -104,35 +110,25 @@ class App extends Component {
       return null
     }
 
-    return <div style={{
-      position: 'absolute',
-      margin: 'auto',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      width: 200,
-      height: 200,
-      background: 'white',
-      padding: 20,
-      border: '1px solid gray',
-      borderRadius: 4,
-      overflow: 'auto'
-    }}>
-    Are you sure you want to delete post {this.state.deletePost.title}?
-    <button onClick={() => {
+    return <div className="delete-modal">
+    <div className="delete-title">
+    Are you sure you want to delete post: {this.state.deletePost.title}?
+    </div>
+    <div className="delete-btn">
+    <button className="btn btn-error btn-yes" onClick={() => {
       this.doDeletePost(this.state.deletePost)
       this.setState({
         deletePost: null
       })
     }}> yes
     </button>
-    <button onClick={() => {
+    <button className="btn btn-success" onClick={() => {
       this.setState({
         deletePost: null
       })
     }}> no
     </button>
+    </div>
     </div>
   }
 

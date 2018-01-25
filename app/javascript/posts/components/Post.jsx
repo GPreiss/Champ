@@ -29,8 +29,10 @@ class PostShow extends Component {
   render() {
     const { post } = this.state
 
-    return <div>
-      <h3 className="center">{post.title} {post.factorial}</h3>
+    return <div className="container">
+    <div className="columns">
+    <div className="column col-6 post-outline">
+      <h3 className="center"><kbd>{post.title} {post.factorial}</kbd></h3>
       <p>{post.body}</p>
       <p>{post.published? "Published" : "Edit to publish"}</p>
       {post.published?
@@ -52,6 +54,8 @@ class PostShow extends Component {
           </div>
         </div>
       }
+    </div>
+    </div>
     </div>
   }
 }

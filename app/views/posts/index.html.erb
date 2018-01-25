@@ -29,3 +29,6 @@
   <br>
 
   <%= link_to 'New Post', new_post_path %>
+  <div id="posts"
+  data-posts="<%= render(template: 'posts/index.json.jbuilder') %>">
+</div>
